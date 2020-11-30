@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="yes"?>
+<!-- CER166531.XML -->
+<arquivo_certidao>
+<hash>8B40CCB241566B34B77A657DD2F81A8B</hash>
+<cod_solicitacao>166531</cod_solicitacao>
+<cod_cns>035832</cod_cns>
+<descricao_cartorio>Registro Civil das Pessoas Naturais</descricao_cartorio>
+<oficial_cartorio>ÍTALO SEVERIANO AZEVEDO MARRA LOPES</oficial_cartorio>
+<ender_cartorio>Rua Maria do Rosario Palma Bezerra , 167 Nº 167</ender_cartorio>
+<bairro_cartorio>CENTRO</bairro_cartorio>
+<cidade_cartorio>BONFINÓPOLIS DE MINAS</cidade_cartorio>
+<uf_cartorio>MG</uf_cartorio>
+<telefone_cartorio>(38) 9 9924-7266</telefone_cartorio>
+<unidade_interligada>Famuc - Maternidade Municipal de Contagem</unidade_interligada>
+<resp_ass_digital>ÍTALO SEVERIANO AZEVEDO MARRA LOPES</resp_ass_digital>
+<data_geracao>2020-11-18</data_geracao>
+<certidao>
+<numero_criancas>1</numero_criancas>
+<crianca>
+<termo>9699</termo>
+<livro>027 A</livro>
+<folha>016 V</folha>
+<matricula_cnj>0358320155 2020 1 00027 016 0009699 67</matricula_cnj>
+<numero_dnv>30744906883</numero_dnv>
+<nome>RAFAELLA GABRIELA SOARES DA SILVA</nome>
+<sexo>Feminino</sexo>
+<data_nascimento>2018-07-06</data_nascimento>
+<hora_nascimento>23:19:00</hora_nascimento>
+<naturalidade>CONTAGEM - MG</naturalidade>
+<cpf></cpf>
+<anotacoes_cadastro>
+    <documentos>
+        <rg>
+            <rg_numero></rg_numero>
+            <rg_data_expedicao></rg_data_expedicao>
+            <rg_orgao_expedidor></rg_orgao_expedidor>
+            <rg_data_validade></rg_data_validade>
+        </rg>
+        <pis_nis>
+            <pis_nis_numero></pis_nis_numero>
+            <pis_nis_data_expedicao></pis_nis_data_expedicao>
+            <pis_nis_orgao_expedidor></pis_nis_orgao_expedidor>
+            <pis_nis_data_validade></pis_nis_data_validade>
+        </pis_nis>
+        <passaporte>
+            <passaporte_numero></passaporte_numero>
+            <passaporte_data_expedicao></passaporte_data_expedicao>
+            <passaporte_orgao_expedidor></passaporte_orgao_expedidor>
+            <passaporte_data_validade></passaporte_data_validade>
+        </passaporte>
+        <cartao_nacional_saude>
+            <cartao_nacional_saude_numero></cartao_nacional_saude_numero>
+            <cartao_nacional_saude_data_expedicao></cartao_nacional_saude_data_expedicao>
+            <cartao_nacional_saude_orgao_expedidor></cartao_nacional_saude_orgao_expedidor>
+            <cartao_nacional_saude_data_validade></cartao_nacional_saude_data_validade>
+        </cartao_nacional_saude>
+        <titulo>
+            <titulo_numero></titulo_numero>
+            <titulo_zona_secao></titulo_zona_secao>
+            <titulo_municipio></titulo_municipio>
+            <titulo_uf></titulo_uf>
+        </titulo>
+    </documentos>
+    <cep></cep>
+    <grupo_sanguineo></grupo_sanguineo>
+</anotacoes_cadastro>
+<selo_digital></selo_digital>
+<observacoes_averbacoes></observacoes_averbacoes>
+</crianca>
+<municipio_uf_registro>BONFINÓPOLIS DE MINAS - MG</municipio_uf_registro>
+<municipio_uf_local_nascimento>Famuc - Maternidade Municipal de Contagem , Av. João César de Oiveira, nº 4.495 - Eldorado, Contagem - MG</municipio_uf_local_nascimento>
+<filiacao_pai>RAFAEL DA SILVA PIRES, Natural de CONTAGEM-MG, Residente em RUA DELFIM MOREIRA 256  JK, 256, CONTAGEM-MG</filiacao_pai>
+<filiacao_mae>RENATA SOARES NEIVA, Natural de BELO HORIZONTE-MG, Residente em RUA DELFIM MOREIRA 256  JK, 256, CONTAGEM-MG</filiacao_mae>
+<avos_paternos>ANTONIO CARLOS PIRES E MARIA APARECIDA DA SILVA PIRES</avos_paternos>
+<avos_maternos>ANGELO NEIVA E BERENICE SOARES CAMPOS NEIVA</avos_maternos>
+<data_registro>2020-11-17</data_registro>
+</certidao>
+</arquivo_certidao>
