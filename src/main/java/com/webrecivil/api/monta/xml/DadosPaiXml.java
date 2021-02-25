@@ -1,4 +1,5 @@
 package com.webrecivil.api.monta.xml;
+import java.util.Date;
 
 import lombok.Data;
 
@@ -37,7 +38,7 @@ public class DadosPaiXml {
 	
 	private String paP = ""; //PROFISSÃO PAI
 	
-	private String paDN = ""; //DATA NASCIMENTO PAI
+	private Date paDN; //DATA NASCIMENTO PAI
 	
 	private String paDI = ""; //DOCUMENTO PAI
 	
@@ -45,9 +46,9 @@ public class DadosPaiXml {
 	
 	private String paPaN = ""; //FILIAÇÃO AVÔ - PAI
 	
-	private boolean paPaF; //FILIAÇÃO AVÔ - PAI - FALECIDO? - NÃO GERA
+	private Boolean paPaF; //FILIAÇÃO AVÔ - PAI - FALECIDO? - NÃO GERA
 	
 	private String paMaN = ""; //FILIAÇÃO AVÓ - PAI
 	
-	private boolean paMaF; //FILIAÇÃO AVÓ - PAI - FALECIDA? - NÃO GERA
+	private Boolean paMaF; //FILIAÇÃO AVÓ - PAI - FALECIDA? - NÃO GERA
 }

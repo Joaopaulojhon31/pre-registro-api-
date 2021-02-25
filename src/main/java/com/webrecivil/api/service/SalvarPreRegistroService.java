@@ -17,7 +17,6 @@ public class SalvarPreRegistroService {
 	public PreRegistro salvarPreRegistro(PreRegistro preRegistro) throws ApiException {
 		
 		validaPreRegistro(preRegistro);
-		
 		preRegistro.setCodigoHash(Util.GerarCodigoHash(preRegistro.getNumeroSolicitacao()+"CRYPTOREC"));
 		return preRegistroRepository.save(preRegistro);
 	}
@@ -33,6 +32,8 @@ public class SalvarPreRegistroService {
 		  PreCadastro = preRegistroRepository.buscaId(idPreRegistro);
 		 return PreCadastro;
 	  }
+	
+	
 	
 	
 }

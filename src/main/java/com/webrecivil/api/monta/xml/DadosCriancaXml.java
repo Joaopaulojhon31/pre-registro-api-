@@ -1,6 +1,5 @@
 package com.webrecivil.api.monta.xml;
 
-import java.security.Timestamp;
 import java.util.Date;
 
 import lombok.Data;
@@ -12,9 +11,9 @@ public class DadosCriancaXml {
 	
 	private String crS = ""; //SEXO CRIANÇA
 	
-	private Date crDt ; //DATA NASCIMENTO CRIANÇA
+	private String crDt ; //DATA NASCIMENTO CRIANÇA
 	
-	private Date crH; //HORA NASCIMENTO
+	private String crH; //HORA NASCIMENTO
 	
 	private String crDNV = ""; //DNV CRIANÇA
 	

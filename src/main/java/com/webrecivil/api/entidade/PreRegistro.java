@@ -1,41 +1,42 @@
 package com.webrecivil.api.entidade;
-import java.security.Timestamp;
 import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.MapsId;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-
-
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 
 import lombok.Data;
 
 @Entity
-@Table(name = "pre_registro", schema = "public")
-@SequenceGenerator(name = "seq_id_na", sequenceName = "seq_id_na", schema = "public", allocationSize = 1)
+@Table(name = "pre_registro", schema = "ecivil")
+@SequenceGenerator(name = "seq_id_na", sequenceName = "seq_id_na", schema = "ecivil", allocationSize = 1)
 @Data
+@XmlRootElement (name = "arquivo_certidao")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class PreRegistro {
 	
 	@Id
 	@Column(name = "id")
 	@GeneratedValue(strategy = GenerationType.AUTO, generator = "seq_id_na")
 	private Long id;
-
+	
+	@XmlElement(name = "hash")
 	@Column(name = "codigo_hash")
 	private String codigoHash; //CÓDIGO HASH
 	
-	@Column(name = "numeroSolicitacao")
+	@XmlElement(name = "cod_solicitacao")
+	@Column(name = "numero_solicitacao")
 	private String numeroSolicitacao;
 	
 	@Temporal(TemporalType.TIMESTAMP)
@@ -46,13 +47,23 @@ public class PreRegistro {
 	@Column(name = "data_fim_solicitacao")
 	private Date dataFimSolicitacao;
 	
+	@XmlElement(name = "data_geracao")
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "data_alteracao_solicitacao")
+	private Date dataAlteracaoSolicitacao; 
+	
+	@Column(name = "situacao_solicitacao")
+	private String situacaoSolicitacao;
+
 	//DADOS UI
-	@Column(name = "muncipio_ui")
-	private int municipioUi; //MUNICÍO UNIDADE INTERLIGADA;
+	@XmlAttribute(name = "unidade_interligada")
+	@Column(name = "municipio_ui")
+	private String municipioUi; //MUNICÍO UNIDADE INTERLIGADA;
 	
 	@Column(name = "uf_ui")
 	private String ufUi; //UF UNIDADE INTERLIGADA;
 	
+	@XmlElement(name = "unidade_interligada")
 	@Column(name = "nome_ui")
 	private String nomeUi; //NOME UNIDADE INTERLIGADA;
 	
@@ -63,27 +74,32 @@ public class PreRegistro {
 	private String logradouroUi; //ENDEREÇO UNIDADE INTERLIGADA;
 	
 	@Column(name = "codigo_ui")
-	private Long coCd; //CÓDIGO UNIDADE INTERLIGADA;
+	private String coCd; //CÓDIGO UNIDADE INTERLIGADA;
 	
 	
 	//DADOS CRIANÇA 1
-	@Column(name = "qtd_criancas")
-	private String qtdCriancas;
+	@XmlElement(name = "numero_criancas")
+	@Column(name = "quantidade_criancas")
+	private String quantidadeCriancas;
 	
+	@XmlElement(name = "nome")
 	@Column(name = "nome_crianca1")
 	private String nomeCrianca1;
 	
+	@XmlElement(name = "sexo")
 	@Column(name = "sexo_crianca1")
 	private String sexoCrianca1;
 	
-	@Temporal(TemporalType.TIMESTAMP)
+	@XmlElement(name = "data_nascimento")
+	@Temporal(TemporalType.DATE)
 	@Column(name = "data_nascimento_crianca1")
 	private Date dataNascimentoCrianca1;
 	
-	@Temporal(TemporalType.TIME)
+	@XmlElement(name = "hora_nascimento")
 	@Column(name = "hora_nascimento_crianca1")
-	private Date horaNascimentoCrianca1;
+	private String horaNascimentoCrianca1;
 	
+	@XmlElement(name = "numero_dnv")
 	@Column(name = "dnv_crianca1")
 	private String dnvCrianca1;
 	
@@ -101,12 +117,32 @@ public class PreRegistro {
 	@Column(name = "sexo_crianca2")
 	private String sexoCrianca2;
 	
+	@Temporal(TemporalType.DATE)
+	@Column(name = "data_nascimento_crianca2")
+	private Date dataNascimentoCrianca2;
+
+	@Column(name = "hora_nascimento_crianca2")
+	private String horaNascimentoCrianca2;
+	
+	@Column(name = "dnv_crianca2")
+	private String dnvCrianca2;
+	
 	//DADOS CRIANÇA 3
 	@Column(name = "nome_crianca3")
 	private String nomeCrianca3;
 	
 	@Column(name = "sexo_crianca3")
 	private String sexoCrianca3;
+	
+	@Temporal(TemporalType.DATE)
+	@Column(name = "data_nascimento_crianca3")
+	private Date dataNascimentoCrianca3;
+	
+	@Column(name = "hora_nascimento_crianca3")
+	private String horaNascimentoCrianca3;
+	
+	@Column(name = "dnv_crianca3")
+	private String dnvCrianca3;
 	
 	//DADOS CRIANÇA 4
 	@Column(name = "nome_crianca4")
@@ -115,6 +151,16 @@ public class PreRegistro {
 	@Column(name = "sexo_crianca4")
 	private String sexoCrianca4;
 	
+	@Temporal(TemporalType.DATE)
+	@Column(name = "data_nascimento_crianca4")
+	private Date dataNascimentoCrianca4;
+	
+	@Column(name = "hora_nascimento_crianca4")
+	private String horaNascimentoCrianca4;
+	
+	@Column(name = "dnv_crianca4")
+	private String dnvCrianca4;
+	
 	//DADOS CRIANÇA 5
 	@Column(name = "nome_crianca5")
 	private String nomeCrianca5;
@@ -122,7 +168,15 @@ public class PreRegistro {
 	@Column(name = "sexo_crianca5")
 	private String sexoCrianca5;
 	
+	@Temporal(TemporalType.DATE)
+	@Column(name = "data_nascimento_crianca5")
+	private Date dataNascimentoCrianca5;
 	
+	@Column(name = "hora_nascimento_crianca5")
+	private String horaNascimentoCrianca5;
+	
+	@Column(name = "dnv_crianca5")
+	private String dnvCrianca5;	
 	
 	//DADOS MÃE
 	@Column(name = "nome_mae")
@@ -131,17 +185,14 @@ public class PreRegistro {
 	@Column(name = "cpf_mae")
 	private String cpfMae;
 	
-	@Column(name = "idade_mae")
-	private int idadeMae;
+	@Column(name = "naturalidade_uf_mae")
+	private String naturalidadeUfMae;
 	
-	@Column(name = "natural_uf_mae")
-	private String naturalUfMae;
+	@Column(name = "naturalidade_mae")
+	private String naturalidadeMae;
 	
-	@Column(name = "natural_mae")
-	private String naturalMae;
-	
-	@Column(name = "natural_distrito_mae")
-	private String naturalDistritoMae;
+	@Column(name = "naturalidade_distrito_mae")
+	private String naturalidadeDistritoMae;
 	
 	@Column(name = "nacionalidade_mae")
 	private String nacionalidadeMae;
@@ -162,7 +213,7 @@ public class PreRegistro {
 	private String residenciaLogradouroMae;
 	
 	@Column(name = "res_numero_mae")
-	private int residenciaNumeroMae;
+	private String residenciaNumeroMae;
 	
 	@Column(name = "res_complemento_mae")
 	private String residenciaComplementoMae;
@@ -174,8 +225,8 @@ public class PreRegistro {
 	private String profissaoMae;
 	
 	@Temporal(TemporalType.DATE)
-	@Column(name = "dt_nascimento_mae")
-	private Date dtNascimentoMae;
+	@Column(name = "data_nascimento_mae")
+	private Date dataNascimentoMae;
 	
 	@Column(name = "documento_mae")
 	private String documentoMae;
@@ -195,6 +246,9 @@ public class PreRegistro {
 	@Column(name = "mae_mae_falecida")
 	private Boolean maeMaeFalecida;
 	
+	@Column(name = "idade_mae")
+	private Integer idadeMae;
+
 	//DADOS PAI
 	@Column(name = "nome_pai")
 	private String nomePai;
@@ -202,14 +256,14 @@ public class PreRegistro {
 	@Column(name = "cpf_pai")
 	private String cpfPai;
 	
-	@Column(name = "natural_uf_pai")
-	private String naturalUfPai;
+	@Column(name = "naturalidade_uf_pai")
+	private String naturalidadeUfPai;
 	
-	@Column(name = "natural_pai")
-	private String naturalPai;
+	@Column(name = "naturalidade_pai")
+	private String naturalidadePai;
 	
-	@Column(name = "natural_distrito_pai")
-	private String naturalDistritoPai;
+	@Column(name = "naturalidade_distrito_pai")
+	private String naturalidadeDistritoPai;
 	
 	@Column(name = "nacionalidade_pai")
 	private String nacionalidadePai;
@@ -241,8 +295,9 @@ public class PreRegistro {
 	@Column(name = "profissao_pai")
 	private String profissaoPai;
 	
-	@Column(name = "dt_nascimento_pai")
-	private String dtNascimentoPai;
+	@Temporal(TemporalType.DATE)
+	@Column(name = "data_nascimento_pai")
+	private Date dataNascimentoPai;
 	
 	@Column(name = "documento_pai")
 	private String documentoPai;
@@ -267,15 +322,16 @@ public class PreRegistro {
 	
 	@Column(name = "idade_pai")
 	private String idadePai;
-	
-	
+
 	//DADOS CARTÓRIO
-	@Column(name = "opt_registro")
-	private String optRegistro;
+	@Column(name = "opcao_registro")
+	private String opcaoRegistro;
 	
+	@XmlElement(name = "descricao_cartorio")
 	@Column(name = "serventia")
 	private String serventia;
 	
+	@XmlElement(name = "cod_cns")
 	@Column(name = "cns_cartorio")
 	private String cnsCartorio;
 	
@@ -303,7 +359,11 @@ public class PreRegistro {
 	private String tipoDocDeclarante;
 	
 	@Temporal(TemporalType.DATE)
-	@Column(name = "dt_nascimento_crianca_declarante")
+	@Column(name = "data_nascimento_declarante")
+	private Date dataNascimentoDeclarante;
+	
+	@Temporal(TemporalType.DATE)
+	@Column(name = "data_nascimento_crianca_declarante")
 	private Date dataNascimentoCriancaDeclarante;
 	
 	@Column(name = "profissao_declarante")
@@ -348,9 +408,5 @@ public class PreRegistro {
 	
 	@Column(name = "dados_quarto_hospedagem_mae")
 	private String dadosQuartoHospedagemMae;
-    
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "id_pre_registro_xml")
-	private PreRegistroXML preRegistroID;
 
 }

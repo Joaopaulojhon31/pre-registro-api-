@@ -1,5 +1,7 @@
 package com.webrecivil.api.service;
 
+import java.sql.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,17 +16,20 @@ public class SalvarXMLService {
 
 	public PreRegistroXML inserirXML(String xml) throws Exception {
 		try {
+			Date data = new Date(System.currentTimeMillis());
 			PreRegistroXML preRegistroXML = new PreRegistroXML();
-			preRegistroXML.setIDPreRegistro(Long.parseLong(pegarCodigoSolicitacaoXml(xml)));
+			preRegistroXML.setIdPreRegistro(Long.parseLong(pegarCodigoSolicitacaoXml(xml)));
 			preRegistroXML.setXml(xml);
-			System.out.println(preRegistroXML.getIDPreRegistro());
+			preRegistroXML.setDataInicio(data);
+			preRegistroXML.setDataAlteracao(data);
 			salvarNoBanco(preRegistroXML);
 			return preRegistroXML;
-			
 		} catch (Exception e) {
+			e.printStackTrace();
 			throw new Exception("Não foi possível salvar o XML");
 		}
 	}
+	
 
 	private PreRegistroXML salvarNoBanco(PreRegistroXML xml) {
 		return preRegistroXMLRepository.save(xml);

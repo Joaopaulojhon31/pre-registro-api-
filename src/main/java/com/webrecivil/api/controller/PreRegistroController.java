@@ -25,42 +25,37 @@ public class PreRegistroController {
 	@Autowired
 	private GerarXMLService buscaPeloCpfDaMae;
 	@Autowired
-	GerarXMLService busca ;
-	@Autowired
-	private SalvarPreRegistroService nome;
+	private SalvarPreRegistroService salvarPreRegistroService;
 	@Autowired
 	private SalvarXMLService inserirXMLService;
-	@Autowired
-	SalvarPreRegistroService cadastro1;
+
+	//@ApiOperation(value = "Efetua a busca do Pré-Registro pelo CPF da mãe")
+	//@ApiResponses(value = { @ApiResponse(code = 200, message = "Retorna os dados do Pré-Registro encontrado"),
+	//@ApiResponse(code = 500, message = "Foi gerada uma exceção"), })
 	
 	@PostMapping("/buscar")
-	public ResponseEntity<String> buscaCpfMae(@RequestBody String cpfMae, boolean isCartosoft){
-	try {
-		return new ResponseEntity<String>(buscaPeloCpfDaMae.gerarXML(cpfMae),HttpStatus.OK);
-	} catch (ApiException e) {
-		return new ResponseEntity<String>(e.getMessage(),HttpStatus.BAD_REQUEST);
+	public ResponseEntity<String> buscaCpfMae(@RequestBody String cpfMae) {
+		try {
+			return new ResponseEntity<String>(buscaPeloCpfDaMae.gerarXML(cpfMae), HttpStatus.OK);
+		} catch (ApiException e) {
+			return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+		}
 	}
-	
-	
-	}
-	
+
 	@GetMapping("/cadastroPreRegistro")
-	public ResponseEntity<Object> salvarPreRegistro (@RequestBody PreRegistro cadastro ) throws ApiException{
-	
+	public ResponseEntity<Object> salvarPreRegistro(@RequestBody PreRegistro cadastro) throws ApiException {
+
 		try {
-		return  new ResponseEntity<Object>(nome.salvarPreRegistro(cadastro), HttpStatus.OK);
-		}catch (ApiException e) {
-			return new ResponseEntity<Object>(e.getMessage(),HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<Object>(salvarPreRegistroService.salvarPreRegistro(cadastro), HttpStatus.OK);
+		} catch (ApiException e) {
+			return new ResponseEntity<Object>(e.getMessage(), HttpStatus.BAD_REQUEST);
 		}
-		}
-	
-	
-	
-	
+	}
+
 	@PostMapping("/salvarXMLPreRegistro")
-	public ResponseEntity<PreRegistroXML> salvarXMLPreRegistro (@RequestBody String xml ) throws Exception{
+	public ResponseEntity<PreRegistroXML> salvarXMLPreRegistro(@RequestBody String xml) throws Exception {
 		try {
-			return  new ResponseEntity<PreRegistroXML>(inserirXMLService.inserirXML(xml), HttpStatus.CREATED);
+			return new ResponseEntity<PreRegistroXML>(inserirXMLService.inserirXML(xml), HttpStatus.CREATED);
 		} catch (Exception e) {
 			MultiValueMap<String, String> headers = new LinkedMultiValueMap<>();
 			headers.set("Erro", e.getMessage());
