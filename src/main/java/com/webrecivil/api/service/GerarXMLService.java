@@ -27,7 +27,7 @@ public class GerarXMLService {
 	public String gerarXML(String cpfMae) throws ApiException {
 		PreRegistro solicitacaoPreRegistro = retornaDadosDaSolicitacaoPreRegistro(cpfMae);
 		
-		if (solicitacaoPreRegistro == null ) {
+		if (solicitacaoPreRegistro == null || (!solicitacaoPreRegistro.getSituacaoSolicitacao().equals("2"))) {
 			return null;
 		}
 		
@@ -62,7 +62,7 @@ public class GerarXMLService {
 		sol.setUiB(solicitacaoPreRegistro.getBairroUi());
 		sol.setUiL(solicitacaoPreRegistro.getLogradouroUi());
 		sol.setCoCd(solicitacaoPreRegistro.getCoCd());
-		sol.setCrQ(solicitacaoPreRegistro.getQuantidadeCriancas());
+		sol.setCrQ(retornaQuantidadeCriancas(solicitacaoPreRegistro));
 		sol.setpaDe(solicitacaoPreRegistro.getStatusPai());
 		sol.setde(solicitacaoPreRegistro.getTipoDeclarante());
 	}
@@ -189,5 +189,28 @@ public class GerarXMLService {
 		return preRegistroRepository.buscaPeloCpfDaMae(cpfMae,cnsCartorio);*/
 		return preRegistroRepository.buscaPeloCpfDaMae(cpfMae);
 	}
+	
+	public String retornaQuantidadeCriancas(PreRegistro preRegistro) {
+		if (preRegistro.getQuantidadeCriancas() == null) {
+			return "0";
+		}
+		switch (preRegistro.getQuantidadeCriancas()) {
+		case "Não":
+			return "1";
+			
+		case "Gêmeos":
+			return "2";
+			
+		case "Trigêmeos":
+			return "3";
+			
+		case "Quadrigêmeos":
+			return "4";
+			
+		case "Quíntuplos":
+			return "5";
 
+		default: return "0";
+		}
+	}
 }

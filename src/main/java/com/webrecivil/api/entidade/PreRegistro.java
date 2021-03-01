@@ -321,7 +321,7 @@ public class PreRegistro {
 	private String statusPai;
 	
 	@Column(name = "idade_pai")
-	private String idadePai;
+	private int idadePai;
 
 	//DADOS CARTÓRIO
 	@Column(name = "opcao_registro")

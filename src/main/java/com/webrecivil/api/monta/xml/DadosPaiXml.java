@@ -10,7 +10,7 @@ public class DadosPaiXml {
 	
 	private String paCPF = ""; //CPF PAI
 	
-	private String paI; //IDADE PAI
+	private int paI; //IDADE PAI
 	
 	private String paNU = ""; //NATURALIDADE UF PAI
 	

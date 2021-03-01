@@ -18,12 +18,13 @@ import lombok.Data;
 @Data
 public class PreRegistroXML {
 	
-	@Column(name = "xml")
-	private String xml;
 	
 	@Id
-	@Column(name = "id_pre_registro")
+	@Column(name = "id_xml_pre_registro")
 	@GeneratedValue(strategy = GenerationType.AUTO, generator = "seq_id_xml")
+	private Long idXmlPreRegistro;
+	
+	@Column(name = "id_pre_registro")
 	private Long idPreRegistro;
 	
 	@Column(name = "data_inicio")
@@ -39,5 +40,8 @@ public class PreRegistroXML {
 	private String corredoria;
 	
 	@Column(name = "id_unidade_interligada")
-	private Long idUnidadeInterligada;
+	private String idUnidadeInterligada;
+	
+	@Column(name = "xml")
+	private String xml;
 }
