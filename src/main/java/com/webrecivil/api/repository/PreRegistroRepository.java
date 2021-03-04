@@ -11,8 +11,13 @@ public interface PreRegistroRepository extends JpaRepository<PreRegistro, Long> 
 	@Query("FROM PreRegistro a where a.id =:x")
 	PreRegistro buscaId(@Param("x") Long id);
 	
-	@Query("FROM PreRegistro b where b.cpfMae = cpfMae")
-	PreRegistro buscaPeloCpfDaMae(@Param("cpfMae") String cpfMae);
-	//PreRegistro buscaPeloCpfDaMae(@Param("cpfMae") String cpfMae, @Param("cnsCartorio") String cnsCartorio);
+	@Query("FROM PreRegistro b where b.cpfMae =:cpfMae")
+	PreRegistro buscaPreRegistroCpfMae(@Param("cpfMae") String cpfMae);
+	
+	@Query("FROM PreRegistro b where b.cpfMae =:cpfMae and b.cnsCartorio =:cnsCartorio")
+	PreRegistro buscaPreRegistro(@Param("cpfMae") String cpfMae, @Param("cnsCartorio") String cnsCartorio);
+	
+	@Query("FROM PreRegistro c where c.numeroSolicitacao =:numeroSolicitacao")
+	PreRegistro buscaPeloNumeroSolicitacao(@Param("numeroSolicitacao") String numeroSolicitacao);
 	
 }

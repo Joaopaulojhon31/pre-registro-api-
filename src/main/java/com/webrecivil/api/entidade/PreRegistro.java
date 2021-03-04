@@ -10,11 +10,8 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
 
 import lombok.Data;
 
@@ -22,8 +19,6 @@ import lombok.Data;
 @Table(name = "pre_registro", schema = "ecivil")
 @SequenceGenerator(name = "seq_id_na", sequenceName = "seq_id_na", schema = "ecivil", allocationSize = 1)
 @Data
-@XmlRootElement (name = "arquivo_certidao")
-@XmlAccessorType(XmlAccessType.FIELD)
 public class PreRegistro {
 	
 	@Id

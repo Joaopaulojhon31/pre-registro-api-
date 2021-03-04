@@ -62,4 +62,5 @@ public class PreRegistroController {
 			return new ResponseEntity<PreRegistroXML>(headers, HttpStatus.BAD_REQUEST);
 		}
 	}
+	
 }

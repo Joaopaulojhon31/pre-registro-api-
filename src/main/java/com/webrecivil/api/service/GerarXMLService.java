@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.thoughtworks.xstream.XStream;
+import com.webrecivil.api.entidade.Parametro;
 import com.webrecivil.api.entidade.PreRegistro;
 import com.webrecivil.api.exception.ApiException;
 import com.webrecivil.api.monta.xml.DadosContatoXml;
@@ -12,6 +13,7 @@ import com.webrecivil.api.monta.xml.DadosDeclaranteXml;
 import com.webrecivil.api.monta.xml.DadosMaeXml;
 import com.webrecivil.api.monta.xml.DadosPaiXml;
 import com.webrecivil.api.monta.xml.PreRegistroSolicitacao;
+import com.webrecivil.api.repository.ParametroRepository;
 import com.webrecivil.api.repository.PreRegistroRepository;
 
 @Service
@@ -19,6 +21,8 @@ public class GerarXMLService {
 
 	@Autowired
 	private PreRegistroRepository preRegistroRepository;
+	@Autowired
+	private ParametroRepository parametroRepository;
 
 	/*public PreRegistro buscaPreRegistroPeloCPFdaMae(String cpfMae) {
 		return preRegistroRepository.buscaPeloCpfDaMae(cpfMae);
@@ -182,15 +186,24 @@ public class GerarXMLService {
 		return dadosContatoXml;
 	}
 
-	private PreRegistro retornaDadosDaSolicitacaoPreRegistro(String cpfMae) {
-		/*String cnsCartorio;
-		cnsCartorio = cpfMae.split(";")[0];
-		cpfMae = cpfMae.split(";")[1];
-		return preRegistroRepository.buscaPeloCpfDaMae(cpfMae,cnsCartorio);*/
-		return preRegistroRepository.buscaPeloCpfDaMae(cpfMae);
+	private PreRegistro retornaDadosDaSolicitacaoPreRegistro(String request) {
+		try {
+			if (verificaParametroPreRegistro()) {
+				return preRegistroRepository.buscaPreRegistroCpfMae(getCpfMae(request));
+			}
+			else return preRegistroRepository.buscaPreRegistro(getCpfMae(request),getCnsCartorio(request));
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+		
 	}
 	
-	public String retornaQuantidadeCriancas(PreRegistro preRegistro) {
+	private boolean verificaParametroPreRegistro() {
+		return parametroRepository.retornaValorParametroPreRegistro(Parametro.CNS_CARTORIO_PREREGISTRO);
+	}
+	
+	private String retornaQuantidadeCriancas(PreRegistro preRegistro) {
 		if (preRegistro.getQuantidadeCriancas() == null) {
 			return "0";
 		}
@@ -212,5 +225,12 @@ public class GerarXMLService {
 
 		default: return "0";
 		}
+	}
+	
+	private String getCpfMae(String cpfMae) {
+		return cpfMae = cpfMae.split(";")[1];
+	}
+	private String getCnsCartorio(String cpfMae) {
+		return cpfMae = cpfMae.split(";")[0];
 	}
 }
