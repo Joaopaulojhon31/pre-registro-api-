@@ -189,7 +189,7 @@ public class GerarXMLService {
 	private PreRegistro retornaDadosDaSolicitacaoPreRegistro(String request) {
 		try {
 			if (verificaParametroPreRegistro()) {
-				return preRegistroRepository.buscaPreRegistroCpfMae(getCpfMae(request));
+				return preRegistroRepository.buscaPreRegistroCpfMae("07214427656");
 			}
 			else return preRegistroRepository.buscaPreRegistro(getCpfMae(request),getCnsCartorio(request));
 		} catch (Exception e) {
