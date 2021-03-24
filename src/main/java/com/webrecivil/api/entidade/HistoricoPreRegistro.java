@@ -33,12 +33,6 @@ public class HistoricoPreRegistro {
 
 	@Column(name = "situacao_preregistro")
 	private String situacao;
-
-	@Column(name = "data_inicio")
-	private Date dataInicio;
-
-	@Column(name = "data_fim")
-	private Date dataFim;
 	
 	@Column(name = "cns_cartorio_registrado")
 	private String cnsCartorio;
@@ -46,20 +40,11 @@ public class HistoricoPreRegistro {
 	@Column(name = "data_hora_alteracao")
 	private Date dataHoraAlteracao;
 	
-	
-	public String dataInicioFormatada() {
-		return DataUtil.converteDateParaString_DDMMYYY_HHMMSS_BARRA(getDataInicio());
-	}
-	
 	public String dataHoraAlteracaoFormatada() {
 		if (getDataHoraAlteracao() == null) {
 			return "-";
 		}
 		return DataUtil.converteDateParaString_DDMMYYY_HHMMSS_BARRA(getDataHoraVisualizacaoRequisitante());
-	}
-	
-	public boolean isEmAberto() {
-		return getDataFim() == null;
 	}
 	
 	public Date getDataHoraAlteracao() {
@@ -92,22 +77,6 @@ public class HistoricoPreRegistro {
 
 	public void setSituacao(String situacao) {
 		this.situacao = situacao;
-	}
-
-	public Date getDataInicio() {
-		return dataInicio;
-	}
-
-	public void setDataInicio(Date dataInicio) {
-		this.dataInicio = dataInicio;
-	}
-
-	public Date getDataFim() {
-		return dataFim;
-	}
-
-	public void setDataFim(Date dataFim) {
-		this.dataFim = dataFim;
 	}
 	
 	public Date getDataHoraVisualizacaoRequisitante() {

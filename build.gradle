@@ -25,6 +25,10 @@ dependencies {
 	runtimeOnly 'org.postgresql:postgresql'
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	// https://mvnrepository.com/artifact/xpp3/xpp3_min
+implementation group: 'xpp3', name: 'xpp3_min', version: '1.1.4c'
+	// https://mvnrepository.com/artifact/com.thoughtworks.xstream/xstream
+implementation group: 'com.thoughtworks.xstream', name: 'xstream', version: '1.4.14'
 }
 
 test {

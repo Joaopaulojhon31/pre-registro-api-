@@ -12,6 +12,10 @@ public class PreRegistroSolicitacao{
 	private String coCd = ""; //CÓDIGO UNIDADE INTERLIGADA
 	private String crQ = ""; //QUANTIDADE DE CRIANÇAS
 	private DadosCriancaXml cr;
+	private DadosCriancaXml cr2;
+	private DadosCriancaXml cr3;
+	private DadosCriancaXml cr4;
+	private DadosCriancaXml cr5;
 	private String paDe = ""; //STATUS PAI
 	private DadosPaiXml pa;
 	private DadosMaeXml ma;
@@ -19,6 +23,30 @@ public class PreRegistroSolicitacao{
 	private DadosDeclaranteXml deI;
 	private DadosContatoXml co;
 	
+	public String converteTipoDeclarante() {
+		if (de == null) {
+			return "";
+		}
+		
+		switch (de) {
+		case "Mãe":
+			de = "1";
+			break;
+		case "Pai":
+			de = "2";
+			break;
+		case "Outro":
+		    de = "4";
+		    break;
+		case "Mae":
+			de = "1";
+			break;
+		default:
+			de = "1";
+			break;
+		}
+		return de;
+	}
 	public String getH() {
 		return h;
 	}
@@ -67,10 +95,10 @@ public class PreRegistroSolicitacao{
 	public void setCrQ(String crQ) {
 		this.crQ = crQ;
 	}
-	public DadosCriancaXml getDadosCriancaXml() {
+	public DadosCriancaXml getDadosCrianca1Xml() {
 		return cr;
 	}
-	public void setDadosCriancaXml(DadosCriancaXml cr) {
+	public void setDadosCrianca1Xml(DadosCriancaXml cr) {
 		this.cr = cr;
 	}
 	public DadosPaiXml getDadosPaiXml() {
@@ -114,5 +142,29 @@ public class PreRegistroSolicitacao{
 	}
 	public void setcodigoSolicitacao(String codigoSolicitacao) {
 		this.codigoSolicitacao = codigoSolicitacao;
+	}
+	public DadosCriancaXml getDadosCrianca2Xml() {
+		return cr2;
+	}
+	public void setDadosCrianca2Xml(DadosCriancaXml cr2) {
+		this.cr2 = cr2;
+	}
+	public DadosCriancaXml getDadosCrianca3Xml() {
+		return cr3;
+	}
+	public void setDadosCrianca3Xml(DadosCriancaXml cr3) {
+		this.cr3 = cr3;
+	}
+	public DadosCriancaXml getDadosCrianca4Xml() {
+		return cr4;
+	}
+	public void setDadosCrianca4Xml(DadosCriancaXml cr4) {
+		this.cr4 = cr4;
+	}
+	public DadosCriancaXml getDadosCrianca5Xml() {
+		return cr5;
+	}
+	public void setDadosCrianca5Xml(DadosCriancaXml cr5) {
+		this.cr5 = cr5;
 	}
 }

@@ -36,7 +36,7 @@ public class DadosPaiXml {
 	
 	private String paCEP = ""; //RESIDENCIA CEP PAI - NÃO GERA
 	
-	private String paP = ""; //PROFISSÃO PAI
+	private String paP = ""; //PROFISSAO PAI
 	
 	private Date paDN; //DATA NASCIMENTO PAI
 	
@@ -44,11 +44,11 @@ public class DadosPaiXml {
 	
 	private String paTDI = ""; //TIPO DOCUMENTO PAI
 	
-	private String paPaN = ""; //FILIAÇÃO AVÔ - PAI
+	private String paPaN = ""; //FILIAÇAO AVO - PAI
 	
-	private Boolean paPaF; //FILIAÇÃO AVÔ - PAI - FALECIDO? - NÃO GERA
+	private Boolean paPaF; //FILIAÇÃO AVÔ - PAI - FALECIDO - NAO GERA
 	
-	private String paMaN = ""; //FILIAÇÃO AVÓ - PAI
+	private String paMaN = ""; //FILIACAO AVO - PAI
 	
-	private Boolean paMaF; //FILIAÇÃO AVÓ - PAI - FALECIDA? - NÃO GERA
+	private Boolean paMaF; //FILIACAO AVO - PAI - FALECIDA - NAO GERA
 }

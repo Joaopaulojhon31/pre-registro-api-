@@ -4,7 +4,7 @@ import lombok.Data;
 @Data
 public class DadosUiXml {
 	
-	private String uim = ""; //MUNICÍO UNIDADE INTERLIGADA;
+	private String uim = ""; //MUNICIPIO UNIDADE INTERLIGADA;
 	
 	private String uiu = ""; //UF UNIDADE INTERLIGADA;
 	
@@ -13,4 +13,6 @@ public class DadosUiXml {
 	private String uiB = ""; //BAIRRO UNIDADE INTERLIGADA;
 	
 	private String uiL = ""; //LOGRADOURO UNIDADE INTERLIGADA;
+	
+	private String coCd = ""; //CODIGO UNIDADE INTERLIGADA;
 }

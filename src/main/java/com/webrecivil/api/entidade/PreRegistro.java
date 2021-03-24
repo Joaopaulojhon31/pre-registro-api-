@@ -69,7 +69,7 @@ public class PreRegistro {
 	private String logradouroUi; //ENDEREÇO UNIDADE INTERLIGADA;
 	
 	@Column(name = "codigo_ui")
-	private String coCd; //CÓDIGO UNIDADE INTERLIGADA;
+	private String codigoUi; //CÓDIGO UNIDADE INTERLIGADA;
 	
 	
 	//DADOS CRIANÇA 1
@@ -316,7 +316,7 @@ public class PreRegistro {
 	private String statusPai;
 	
 	@Column(name = "idade_pai")
-	private int idadePai;
+	private Integer idadePai;
 
 	//DADOS CARTÓRIO
 	@Column(name = "opcao_registro")
@@ -403,5 +403,11 @@ public class PreRegistro {
 	
 	@Column(name = "dados_quarto_hospedagem_mae")
 	private String dadosQuartoHospedagemMae;
-
+	
+	public Integer pegaIdadePai() {
+		if (idadePai == null) {
+			return 0;
+		}
+		return idadePai;
+	}
 }

@@ -40,15 +40,44 @@ public class GerarXMLService {
 		XStream xml = new XStream();
 		PreRegistroSolicitacao sol = new PreRegistroSolicitacao();
 		xml.alias("sol", PreRegistroSolicitacao.class);
+		xml.aliasField("cr", PreRegistroSolicitacao.class, "cr2");
+		xml.aliasField("cr", PreRegistroSolicitacao.class, "cr3");
+		xml.aliasField("cr", PreRegistroSolicitacao.class, "cr4");
+		xml.aliasField("cr", PreRegistroSolicitacao.class, "cr5");
 
 		setaDadosXmlUnidadeInterligada(sol, solicitacaoPreRegistro);
-		sol.setDadosCriancaXml(setaDadosCrianca(solicitacaoPreRegistro));
+		setaDadosCrianca(sol, solicitacaoPreRegistro);
+		sol.setDadosPaiXml(setaDadosPai(solicitacaoPreRegistro));
+		sol.setDadosMaeXml(setaDadosMae(solicitacaoPreRegistro));
+		sol.setDadosDeclaranteXml(setaDadosDeclarante(solicitacaoPreRegistro));
+		sol.setDadosContatoXml(setaDadosContatoXml(solicitacaoPreRegistro));
+		
+		return "<?xml version=\"1.0\" encoding=\"utf-8\"?>" + "\n" + xml.toXML(sol);
+	}
+	
+	//TODO: Método alternativo para gerar o XML enviando CNS e CPF, pois o Cartosoft consegue enviar apenas um parâmetro
+	public String gerarXmlViaCRC(String cpfMae, String cnsCartorio) throws ApiException {
+		PreRegistro solicitacaoPreRegistro = recuperaPreRegistroSolicitadoPeloCRC(cpfMae, cnsCartorio);
+		
+		if (solicitacaoPreRegistro == null || (!solicitacaoPreRegistro.getSituacaoSolicitacao().equals("2"))) {
+			return null;
+		}
+		
+		validaCPF(cpfMae);
+
+		XStream xml = new XStream();
+		PreRegistroSolicitacao sol = new PreRegistroSolicitacao();
+		xml.alias("sol", PreRegistroSolicitacao.class);
+		xml.aliasField("cr", DadosCriancaXml.class, "cr2");
+
+		setaDadosXmlUnidadeInterligada(sol, solicitacaoPreRegistro);
+		setaDadosCrianca(sol, solicitacaoPreRegistro);
 		sol.setDadosPaiXml(setaDadosPai(solicitacaoPreRegistro));
 		sol.setDadosMaeXml(setaDadosMae(solicitacaoPreRegistro));
 		sol.setDadosDeclaranteXml(setaDadosDeclarante(solicitacaoPreRegistro));
 		sol.setDadosContatoXml(setaDadosContatoXml(solicitacaoPreRegistro));
 
-		return "<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>" + "\n" + xml.toXML(sol);
+		return "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" + "\n" + xml.toXML(sol);
 	}
 
 	private void validaCPF(String cpfMae) throws ApiException {
@@ -65,13 +94,33 @@ public class GerarXMLService {
 		sol.setUiN(solicitacaoPreRegistro.getNomeUi());
 		sol.setUiB(solicitacaoPreRegistro.getBairroUi());
 		sol.setUiL(solicitacaoPreRegistro.getLogradouroUi());
-		sol.setCoCd(solicitacaoPreRegistro.getCoCd());
-		sol.setCrQ(retornaQuantidadeCriancas(solicitacaoPreRegistro));
+		sol.setCoCd(solicitacaoPreRegistro.getCodigoUi());
+		sol.setCrQ(solicitacaoPreRegistro.getQuantidadeCriancas());
 		sol.setpaDe(solicitacaoPreRegistro.getStatusPai());
 		sol.setde(solicitacaoPreRegistro.getTipoDeclarante());
+		
+		sol.converteTipoDeclarante();
 	}
 
-	private DadosCriancaXml setaDadosCrianca(PreRegistro solicitacaoPreRegistro) {
+	private void setaDadosCrianca(PreRegistroSolicitacao sol, PreRegistro solicitacaoPreRegistro) {
+		
+		sol.setDadosCrianca1Xml(setaDadosCrianca1(solicitacaoPreRegistro));
+		
+		if (Integer.parseInt(solicitacaoPreRegistro.getQuantidadeCriancas()) > 1) {
+			sol.setDadosCrianca2Xml(setaDadosCrianca2(solicitacaoPreRegistro));
+		}
+		if (Integer.parseInt(solicitacaoPreRegistro.getQuantidadeCriancas()) > 2) {
+			sol.setDadosCrianca3Xml(setaDadosCrianca3(solicitacaoPreRegistro));
+		}
+		if (Integer.parseInt(solicitacaoPreRegistro.getQuantidadeCriancas()) > 3) {
+			sol.setDadosCrianca4Xml(setaDadosCrianca4(solicitacaoPreRegistro));
+		}
+		if (Integer.parseInt(solicitacaoPreRegistro.getQuantidadeCriancas()) > 4) {
+			sol.setDadosCrianca5Xml(setaDadosCrianca5(solicitacaoPreRegistro));
+		}
+	}
+	
+	private DadosCriancaXml setaDadosCrianca1(PreRegistro solicitacaoPreRegistro) {
 		DadosCriancaXml dadosCriancaXml = new DadosCriancaXml();
 
 		dadosCriancaXml.setCrN(solicitacaoPreRegistro.getNomeCrianca1());
@@ -79,6 +128,62 @@ public class GerarXMLService {
 		dadosCriancaXml.setCrDt(solicitacaoPreRegistro.getDataNascimentoCrianca1().toString());
 		dadosCriancaXml.setCrH(solicitacaoPreRegistro.getHoraNascimentoCrianca1());
 		dadosCriancaXml.setCrDNV(solicitacaoPreRegistro.getDnvCrianca1());
+		dadosCriancaXml.setCrNatUF(solicitacaoPreRegistro.getNaturalidadeUf());
+		dadosCriancaXml.setCrNatMun(solicitacaoPreRegistro.getNaturalidade());
+
+		return dadosCriancaXml;
+	}
+	
+	private DadosCriancaXml setaDadosCrianca2(PreRegistro solicitacaoPreRegistro) {
+		DadosCriancaXml dadosCriancaXml = new DadosCriancaXml();
+
+		dadosCriancaXml.setCrN(solicitacaoPreRegistro.getNomeCrianca2());
+		dadosCriancaXml.setCrS(solicitacaoPreRegistro.getSexoCrianca2());
+		dadosCriancaXml.setCrDt(solicitacaoPreRegistro.getDataNascimentoCrianca2().toString());
+		dadosCriancaXml.setCrH(solicitacaoPreRegistro.getHoraNascimentoCrianca2());
+		dadosCriancaXml.setCrDNV(solicitacaoPreRegistro.getDnvCrianca2());
+		dadosCriancaXml.setCrNatUF(solicitacaoPreRegistro.getNaturalidadeUf());
+		dadosCriancaXml.setCrNatMun(solicitacaoPreRegistro.getNaturalidade());
+
+		return dadosCriancaXml;
+	}
+	
+	private DadosCriancaXml setaDadosCrianca3(PreRegistro solicitacaoPreRegistro) {
+		DadosCriancaXml dadosCriancaXml = new DadosCriancaXml();
+
+		dadosCriancaXml.setCrN(solicitacaoPreRegistro.getNomeCrianca3());
+		dadosCriancaXml.setCrS(solicitacaoPreRegistro.getSexoCrianca3());
+		dadosCriancaXml.setCrDt(solicitacaoPreRegistro.getDataNascimentoCrianca3().toString());
+		dadosCriancaXml.setCrH(solicitacaoPreRegistro.getHoraNascimentoCrianca3());
+		dadosCriancaXml.setCrDNV(solicitacaoPreRegistro.getDnvCrianca3());
+		dadosCriancaXml.setCrNatUF(solicitacaoPreRegistro.getNaturalidadeUf());
+		dadosCriancaXml.setCrNatMun(solicitacaoPreRegistro.getNaturalidade());
+
+		return dadosCriancaXml;
+	}
+	
+	private DadosCriancaXml setaDadosCrianca4(PreRegistro solicitacaoPreRegistro) {
+		DadosCriancaXml dadosCriancaXml = new DadosCriancaXml();
+
+		dadosCriancaXml.setCrN(solicitacaoPreRegistro.getNomeCrianca4());
+		dadosCriancaXml.setCrS(solicitacaoPreRegistro.getSexoCrianca4());
+		dadosCriancaXml.setCrDt(solicitacaoPreRegistro.getDataNascimentoCrianca4().toString());
+		dadosCriancaXml.setCrH(solicitacaoPreRegistro.getHoraNascimentoCrianca4());
+		dadosCriancaXml.setCrDNV(solicitacaoPreRegistro.getDnvCrianca4());
+		dadosCriancaXml.setCrNatUF(solicitacaoPreRegistro.getNaturalidadeUf());
+		dadosCriancaXml.setCrNatMun(solicitacaoPreRegistro.getNaturalidade());
+
+		return dadosCriancaXml;
+	}
+	
+	private DadosCriancaXml setaDadosCrianca5(PreRegistro solicitacaoPreRegistro) {
+		DadosCriancaXml dadosCriancaXml = new DadosCriancaXml();
+
+		dadosCriancaXml.setCrN(solicitacaoPreRegistro.getNomeCrianca5());
+		dadosCriancaXml.setCrS(solicitacaoPreRegistro.getSexoCrianca5());
+		dadosCriancaXml.setCrDt(solicitacaoPreRegistro.getDataNascimentoCrianca5().toString());
+		dadosCriancaXml.setCrH(solicitacaoPreRegistro.getHoraNascimentoCrianca5());
+		dadosCriancaXml.setCrDNV(solicitacaoPreRegistro.getDnvCrianca5());
 		dadosCriancaXml.setCrNatUF(solicitacaoPreRegistro.getNaturalidadeUf());
 		dadosCriancaXml.setCrNatMun(solicitacaoPreRegistro.getNaturalidade());
 
@@ -94,7 +199,7 @@ public class GerarXMLService {
 
 		dadosPaiXml.setPaN(solicitacaoPreRegistro.getNomePai());
 		dadosPaiXml.setPaCPF(solicitacaoPreRegistro.getCpfPai());
-		dadosPaiXml.setPaI(solicitacaoPreRegistro.getIdadePai());
+		dadosPaiXml.setPaI(solicitacaoPreRegistro.pegaIdadePai());
 		dadosPaiXml.setPaNU(solicitacaoPreRegistro.getNaturalidadeUfPai());
 		dadosPaiXml.setPaNM(solicitacaoPreRegistro.getNaturalidadePai());
 		dadosPaiXml.setPaND(solicitacaoPreRegistro.getNaturalidadeDistritoPai());
@@ -171,6 +276,8 @@ public class GerarXMLService {
 		dadosDeclaranteXml.setDeEc(solicitacaoPreRegistro.getComplementoResidenciaDeclarante());
 		dadosDeclaranteXml.setDeDPO(solicitacaoPreRegistro.getDadosProcesso());
 		dadosDeclaranteXml.setDeDPA(solicitacaoPreRegistro.getDadosProcuracao());
+		
+		dadosDeclaranteXml.converteTipoDeclaracao();
 
 		return dadosDeclaranteXml;
 	}
@@ -189,9 +296,23 @@ public class GerarXMLService {
 	private PreRegistro retornaDadosDaSolicitacaoPreRegistro(String request) {
 		try {
 			if (verificaParametroPreRegistro()) {
-				return preRegistroRepository.buscaPreRegistroCpfMae("07214427656");
+				return preRegistroRepository.buscaPreRegistroCpfMae(getCpfMae(request));
 			}
 			else return preRegistroRepository.buscaPreRegistro(getCpfMae(request),getCnsCartorio(request));
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+		
+	}
+	
+	//TODO: Método alternativo para recuperar o Pré-Registro, pois o Cartosoft consegue enviar apenas um parâmetro
+	private PreRegistro recuperaPreRegistroSolicitadoPeloCRC(String cpfMae, String cnsCartorio) {
+		try {
+			if (verificaParametroPreRegistro()) {
+				return preRegistroRepository.buscaPreRegistroCpfMae(cpfMae);
+			}
+			else return preRegistroRepository.buscaPreRegistro(cpfMae,cnsCartorio);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
@@ -203,7 +324,7 @@ public class GerarXMLService {
 		return parametroRepository.retornaValorParametroPreRegistro(Parametro.CNS_CARTORIO_PREREGISTRO);
 	}
 	
-	private String retornaQuantidadeCriancas(PreRegistro preRegistro) {
+	/*private int retornaQuantidadeCriancas(PreRegistro preRegistro) {
 		if (preRegistro.getQuantidadeCriancas() == null) {
 			return "0";
 		}
@@ -222,10 +343,8 @@ public class GerarXMLService {
 			
 		case "Quíntuplos":
 			return "5";
-
-		default: return "0";
 		}
-	}
+	}*/
 	
 	private String getCpfMae(String cpfMae) {
 		return cpfMae = cpfMae.split(";")[1];

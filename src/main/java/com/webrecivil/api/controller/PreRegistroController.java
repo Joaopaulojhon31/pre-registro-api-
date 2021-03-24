@@ -23,7 +23,7 @@ import com.webrecivil.api.service.SalvarXMLService;
 public class PreRegistroController {
 	
 	@Autowired
-	private GerarXMLService buscaPeloCpfDaMae;
+	private GerarXMLService gerarXmlService;
 	@Autowired
 	private SalvarPreRegistroService salvarPreRegistroService;
 	@Autowired
@@ -36,7 +36,17 @@ public class PreRegistroController {
 	@PostMapping("/buscar")
 	public ResponseEntity<String> buscaCpfMae(@RequestBody String cpfMae) {
 		try {
-			return new ResponseEntity<String>(buscaPeloCpfDaMae.gerarXML(cpfMae), HttpStatus.OK);
+			return new ResponseEntity<String>(gerarXmlService.gerarXML(cpfMae), HttpStatus.OK);
+		} catch (ApiException e) {
+			return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+		}
+	}
+	
+	//TODO: Método alternativo para gerar o XML enviando CNS e CPF, pois o Cartosoft consegue enviar apenas um parâmetro
+	@PostMapping("/gerarXml")
+	public ResponseEntity<String> gerarXml(@RequestBody String cpfMae, String cnsCartorio) {
+		try {
+			return new ResponseEntity<String>(gerarXmlService.gerarXmlViaCRC(cpfMae, cnsCartorio), HttpStatus.OK);
 		} catch (ApiException e) {
 			return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
 		}

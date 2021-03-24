@@ -52,7 +52,7 @@ public class SalvarXMLService {
 		preRegistroXML.setDataInicio(data);
 		preRegistroXML.setDataAlteracao(data);
 		preRegistroXML.setCorredoria(preRegistro.getCodCorregedoriaCartorio());
-		preRegistroXML.setIdUnidadeInterligada(preRegistro.getCoCd());
+		preRegistroXML.setIdUnidadeInterligada(preRegistro.getCodigoUi());
 		return preRegistroXML;
 	}
 	
@@ -84,7 +84,7 @@ public class SalvarXMLService {
 	private HistoricoPreRegistro montaNovoObjetoHistoricoPreRegistro(PreRegistro preRegistro) {
 		Date data = new Date(System.currentTimeMillis());
 		HistoricoPreRegistro historicoPreRegistro = new HistoricoPreRegistro();
-		historicoPreRegistro.setDataInicio(data);
+		historicoPreRegistro.setDataHoraAlteracao(data);
 		historicoPreRegistro.setCnsCartorio(preRegistro.getCnsCartorio());
 		historicoPreRegistro.setPreRegistro(preRegistro);
 		historicoPreRegistro.setSituacao(preRegistro.getSituacaoSolicitacao());
